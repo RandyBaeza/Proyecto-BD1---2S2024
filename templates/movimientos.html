@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listado de Movimientos</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script src="{{ url_for('static', filename='movimientos.js') }}" defer></script>
+</head>
+<body>
+    <div class="container">
+
+        <input type="hidden" id="idEC" name="idEC" value="{{ idEC }}" required>
+        <input type="hidden" id="TipoTC" name="TipoTC" value="{{ TipoTC }}" required>
+
+        <br></br>
+
+        <h2>Listado de Movimientos</h2>
+        <table class="movimientos-table">
+            <thead>
+                <tr>
+                    <th>Fecha</th>
+                    <th>Tipo Movimiento</th>
+                    <th>Descripcion</th>
+                    <th>Referencia</th>
+                    <th>Monto</th>
+                    <th>Nuevo Saldo</th>
+                </tr>
+            </thead>
+            <tbody id="movimientosTableBody">
+                <!-- Filas generadas dinámicamente -->
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

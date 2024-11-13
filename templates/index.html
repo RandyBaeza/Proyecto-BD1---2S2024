@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listado de Empleados</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script src="{{ url_for('static', filename='empleados.js') }}" defer></script>
+</head>
+<body>
+    <div class="container">
+
+        <input type="hidden" id="userId" name="userId" value="{{ userId }}" required>
+        <input type="hidden" id="admin" name="admin" value="{{ admin }}" required>
+
+        <h1>Listado de Tarjetas de Credito</h1>
+        <button onclick="logout()">Logout</button>
+        <br></br>
+
+        <script>
+            console.log("userId: ", userId);
+            console.log("admin: ", admin);
+            async function logout() {
+                try {
+                    const userId = document.getElementById('userId').value;
+
+                    // Enviar los datos de login usando fetch
+                    const response = await fetch('/logout_empleado', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ userId })
+                    });
+
+                    const result = await response.json();
+
+                    // Si el login es exitoso, redirigir al index con el userId
+                    if (result.success) {
+                        const userId = result.userId;
+                        window.location.href = `/`;
+                    } else {
+                        alert('Error: ' + result.message);
+                    }
+                } catch (error) {
+                    console.error('Error al cerrar sesión:', error);
+                    alert('Error al cerrar sesión. Intente de nuevo.');
+                }
+            }
+        </script>
+
+
+        <table class="employee-table">
+            <thead>
+                <tr>
+                    <th>Numero de Tarjeta</th>
+                    <th>Activo</th>
+                    <th>Tipo de Tarjeta</th>
+                    <th>Fecha de Vencimiento</th>
+                    <th>Consultar</th>
+                </tr>
+            </thead>
+            <tbody id="employeeTableBody">
+                <!--Filas generadas dinámicamente-->
+            </tbody>
+        </table>
+    </div>
+     <!-- Si existe un error, lo pasamos como un input oculto -->
+    {% if error %}
+    <input type="hidden" id="errorMessage" value="{{ error }}">
+    {% endif %}
+</body>
+</html>

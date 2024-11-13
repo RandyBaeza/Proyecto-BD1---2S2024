@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listado de Empleados</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script src="{{ url_for('static', filename='subestadosdecuenta.js') }}" defer></script>
+</head>
+<body>
+    <div class="container">
+
+        <input type="hidden" id="userId" name="userId" value="{{ userId }}" required>
+        <input type="hidden" id="idTF" name="idTF" value="{{ idTF }}" required>
+        <input type="hidden" id="TipoTC" name="TipoTC" value="{{ TipoTC }}" required>
+
+        <h1>Estados de Cuenta</h1>
+        <br></br>
+
+        <script>
+            console.log("userId: ", userId);
+            console.log("idTF: ", idTF,);
+            console.log("TipTC: ", TipoTC,);
+
+        </script>
+
+        <br></br>
+
+        <table class="sec-table">
+            <thead>
+                <tr>
+                    <th>Fecha</th>
+                    <th>Operaciones ATM</th>
+                    <th>Operaciones Ventanilla</th>
+                    <th>Compras</th>
+                    <th>Suma de Compras</th>
+                    <th>Retiros</th>
+                    <th>Suma de Retiros</th>
+                    <th>Consultar</th>
+                </tr>
+            </thead>
+            <tbody id="secTableBody">
+                <!--Filas generadas dinámicamente-->
+            </tbody>
+        </table>
+    </div>
+    <!-- Si existe un error, lo pasamos como un input oculto -->
+    {% if error %}
+    <input type="hidden" id="errorMessage" value="{{ error }}">
+    {% endif %}
+</body>
+</html>
+
